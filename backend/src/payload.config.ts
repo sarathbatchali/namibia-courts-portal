@@ -17,10 +17,8 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-  // Use a Function for CORS to be as dynamic as possible
-  cors: (origin) => {
-    return true; // Allow ALL origins
-  },
+  // Use a wildcard string
+  cors: '*',
   csrf: [
     'https://namibia-courts-portal-vercel.vercel.app',
     'http://localhost:5173'
