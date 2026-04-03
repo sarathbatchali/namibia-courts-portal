@@ -17,11 +17,7 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-  cors: [
-    'http://localhost:5173',
-    'https://namibia-courts-portal-vercel.vercel.app',
-    'http://localhost:3000'
-  ],
+  cors: '*',
   admin: {
     user: Users.slug,
     importMap: {
