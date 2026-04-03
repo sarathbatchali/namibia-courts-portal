@@ -17,21 +17,8 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-  cors: '*', // Allow all for prototype
-  express: {
-    preMiddleware: [
-      (req, res, next) => {
-        res.header('Access-Control-Allow-Origin', '*')
-        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With')
-        if (req.method === 'OPTIONS') {
-          res.sendStatus(200)
-        } else {
-          next()
-        }
-      },
-    ],
-  },
+  // Open CORS for the prototype to avoid blocking Vercel
+  cors: '*',
   admin: {
     user: Users.slug,
     importMap: {
