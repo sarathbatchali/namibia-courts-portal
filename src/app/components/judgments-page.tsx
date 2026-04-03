@@ -11,6 +11,8 @@ interface JudgmentsPageProps {
   onNavigate?: (page: any, filter?: any) => void;
 }
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 export function JudgmentsPage({ filter, onNavigate = () => {} }: JudgmentsPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCourt, setSelectedCourt] = useState(filter?.court || 'all');
@@ -24,7 +26,7 @@ export function JudgmentsPage({ filter, onNavigate = () => {} }: JudgmentsPagePr
   const { data: judgments, isLoading } = useQuery({
     queryKey: ['judgments', selectedCourt, selectedCategory, searchQuery],
     queryFn: async () => {
-      let url = `http://localhost:3000/api/judgments?limit=100`;
+      let url = `${API_URL}/api/judgments?limit=100`;
       const queryFilters: string[] = [];
       
       if (selectedCourt !== 'all') queryFilters.push(`where[court][equals]=${selectedCourt}`);
@@ -142,7 +144,7 @@ export function JudgmentsPage({ filter, onNavigate = () => {} }: JudgmentsPagePr
 
                       <div className="flex items-center gap-3">
                         <a 
-                          href={doc.externalUrl || (doc.file?.url ? `http://localhost:3000${doc.file.url}` : '#')} 
+                          href={doc.externalUrl || (doc.file?.url ? `${API_URL}${doc.file.url}` : '#')} 
                           target="_blank"
                           rel="noreferrer"
                           className="flex items-center gap-2 px-6 py-3 bg-gray-50 text-gray-900 font-black text-[10px] uppercase tracking-widest rounded-lg hover:bg-[#FFC72C] hover:text-[#7A1C1C] transition-all border border-gray-100"

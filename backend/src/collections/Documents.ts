@@ -5,7 +5,7 @@ export const Documents: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'category', 'displayDate', 'updatedAt'],
-    searchableFields: ['title', 'category'],
+    listSearchableFields: ['title', 'category'],
   },
   upload: {
     staticDir: 'media/documents',

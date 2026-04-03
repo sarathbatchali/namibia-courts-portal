@@ -11,6 +11,8 @@ interface ResourcesPageProps {
   onNavigate?: (page: any, filter?: any) => void;
 }
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 export function ResourcesPage({ type, filter, onNavigate = () => {} }: ResourcesPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCourt, setSelectedCourt] = useState(filter?.court || 'all');
@@ -24,7 +26,7 @@ export function ResourcesPage({ type, filter, onNavigate = () => {} }: Resources
   const { data: resources, isLoading } = useQuery({
     queryKey: ['resources', type, selectedCourt, searchQuery],
     queryFn: async () => {
-      let url = `http://localhost:3000/api/resources?limit=100`;
+      let url = `${API_URL}/api/resources?limit=100`;
       const queryFilters: string[] = [];
       
       // Filter by Resource Type based on the new IA
@@ -148,7 +150,7 @@ export function ResourcesPage({ type, filter, onNavigate = () => {} }: Resources
 
                   <div className="flex items-center gap-3">
                     <a 
-                      href={`http://localhost:3000${doc.url}`} 
+                      href={`${API_URL}${doc.url}`} 
                       target="_blank"
                       rel="noreferrer"
                       className="flex items-center gap-2 px-6 py-3 bg-gray-50 text-gray-900 font-bold text-[10px] uppercase tracking-widest rounded-lg hover:bg-[#FFC72C] hover:text-[#001489] transition-all border border-gray-100"

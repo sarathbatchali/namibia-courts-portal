@@ -10,6 +10,8 @@ interface CourtRollsPageProps {
   onNavigate?: (page: any, filter?: any) => void;
 }
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
 export function CourtRollsPage({ filter, onNavigate = () => {} }: CourtRollsPageProps) {
   const [selectedCourt, setSelectedCourt] = useState(filter?.court || 'all');
   const [selectedType, setSelectedType] = useState('all');
@@ -23,7 +25,7 @@ export function CourtRollsPage({ filter, onNavigate = () => {} }: CourtRollsPage
   const { data: rolls, isLoading } = useQuery({
     queryKey: ['court-rolls', selectedCourt, selectedType],
     queryFn: async () => {
-      let url = 'http://localhost:3000/api/court-rolls?limit=100';
+      let url = `${API_URL}/api/court-rolls?limit=100`;
       const queryFilters: string[] = [];
       if (selectedCourt !== 'all') queryFilters.push(`where[court][equals]=${selectedCourt}`);
       if (selectedType !== 'all') queryFilters.push(`where[rollType][equals]=${selectedType}`);
